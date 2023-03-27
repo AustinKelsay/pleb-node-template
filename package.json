@@ -1,0 +1,29 @@
+{
+  "name": "pleb-node-lnd-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AustinKelsay/pleb-node-template.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AustinKelsay/pleb-node-template/issues"
+  },
+  "homepage": "https://github.com/AustinKelsay/pleb-node-template#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "helmet": "^6.0.1",
+    "lnd-grpc": "^0.5.4",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.22"
+  }
+}
