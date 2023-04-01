@@ -11,7 +11,19 @@ function AddPeer() {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Send POST request to backend
+    fetch("http://localhost:5501/lightning/addPeer", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ pubkey, host }),
+    });
     setShowForm(false);
+    setSuccessMessage("Peer added successfully");
+    setHost("");
+    setPubkey("");
   };
 
   return (
