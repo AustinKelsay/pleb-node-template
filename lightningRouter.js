@@ -3,6 +3,8 @@ const {
   getInfo,
   getBalances,
   getChannels,
+  createInvoice,
+  payInvoice,
   addPeer,
   removePeer,
   openChannel,
@@ -52,6 +54,40 @@ router.post("/removePeer", async (req, res) => {
 
   res.status(200).json({
     peer,
+  });
+});
+
+router.post("/createInvoice", async (req, res) => {
+  const { amount, memo } = req.body;
+
+  const invoice = await createInvoice(amount, memo);
+
+  if (invoice.error) {
+    res.status(400).json({
+      message: invoice.error,
+    });
+  }
+
+  res.status(200).json({
+    invoice,
+  });
+});
+
+router.post("/payInvoice", async (req, res) => {
+  console.log(req.body);
+
+  const { invoice } = req.body;
+
+  const payment = await payInvoice(invoice);
+
+  if (payment.error) {
+    res.status(400).json({
+      message: payment.error,
+    });
+  }
+
+  res.status(200).json({
+    payment,
   });
 });
 

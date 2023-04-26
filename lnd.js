@@ -40,6 +40,23 @@ const getChannels = async () => {
   return channels;
 };
 
+const createInvoice = async (amount, memo = "") => {
+  const invoice = await lnd.services.Lightning.addInvoice({
+    value: amount,
+    memo,
+  });
+
+  return invoice;
+};
+
+const payInvoice = async (paymentRequest) => {
+  const payment = await lnd.services.Lightning.sendPaymentSync({
+    payment_request: paymentRequest,
+  });
+
+  return payment;
+};
+
 const removePeer = async (pubkey) => {
   const removePeer = await lnd.services.Lightning.disconnectPeer({
     pub_key: pubkey,
@@ -93,6 +110,8 @@ module.exports = {
   connect,
   getInfo,
   getBalances,
+  createInvoice,
+  payInvoice,
   getChannels,
   addPeer,
   removePeer,

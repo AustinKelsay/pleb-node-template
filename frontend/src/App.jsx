@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Channels from "./components/Channels";
 import Peers from "./components/Peers";
 import ManageChannels from "./components/ManageChannels";
+import Invoices from "./components/Invoices";
 import "./App.css";
 
 function App() {
@@ -55,6 +56,9 @@ function App() {
 
       {/* Peers */}
       <Peers />
+
+      {/* Invoices */}
+      <Invoices />
 
       {/* Open channel */}
       <ManageChannels />
