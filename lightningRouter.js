@@ -4,7 +4,9 @@ const {
   getBalances,
   getChannels,
   addPeer,
+  removePeer,
   openChannel,
+  closeChannel,
 } = require("./lnd");
 
 router.get("/", async (req, res) => {
@@ -26,6 +28,28 @@ router.post("/addPeer", async (req, res) => {
 
   const peer = await addPeer(pubkey, host);
 
+  if (peer.error) {
+    res.status(400).json({
+      message: peer.error,
+    });
+  }
+
+  res.status(200).json({
+    peer,
+  });
+});
+
+router.post("/removePeer", async (req, res) => {
+  const { pubkey } = req.body;
+
+  const peer = await removePeer(pubkey);
+
+  if (peer.error) {
+    res.status(400).json({
+      message: peer.error,
+    });
+  }
+
   res.status(200).json({
     peer,
   });
@@ -34,14 +58,32 @@ router.post("/addPeer", async (req, res) => {
 router.post("/openChannel", async (req, res) => {
   const { pubkey, amount } = req.body;
 
-  console.log("req", req.body);
-
   const channel = await openChannel(pubkey, amount);
 
-  console.log("channel openend?", channel);
+  if (channel.error) {
+    res.status(400).json({
+      message: channel.error,
+    });
+  }
 
   res.status(200).json({
     message: "Channel opened",
+  });
+});
+
+router.post("/closeChannel", async (req, res) => {
+  const { channelId } = req.body;
+
+  const channel = await closeChannel(channelId);
+
+  if (channel.error) {
+    res.status(400).json({
+      message: channel.error,
+    });
+  }
+
+  res.status(200).json({
+    message: "Channel closed",
   });
 });
 

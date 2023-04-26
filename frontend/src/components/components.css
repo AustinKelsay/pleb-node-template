@@ -17,7 +17,8 @@ label {
   font-size: 18px;
 }
 
-input {
+input,
+select {
   padding: 10px;
   margin: 5px;
   border-radius: 5px;
@@ -45,6 +46,12 @@ button:hover {
 
 .success-message {
   color: #4caf50;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.error-message {
+  color: #f44336;
   font-size: 16px;
   margin-top: 10px;
 }

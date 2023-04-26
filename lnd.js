@@ -40,6 +40,14 @@ const getChannels = async () => {
   return channels;
 };
 
+const removePeer = async (pubkey) => {
+  const removePeer = await lnd.services.Lightning.disconnectPeer({
+    pub_key: pubkey,
+  });
+
+  return removePeer;
+};
+
 const addPeer = async (pubkey, host) => {
   const addPeer = await lnd.services.Lightning.connectPeer({
     addr: {
@@ -60,11 +68,34 @@ const openChannel = async (pubkey, amount) => {
   return channelOpen;
 };
 
+const closeChannel = async (channelPoint) => {
+  // first get the channel point from the channel
+  const channel = await lnd.services.Lightning.getChanInfo({
+    chan_id: channelPoint,
+  });
+
+  const fundingTxId = channel.chan_point.split(":")[0];
+
+  const outputIndex = parseInt(channel.chan_point.split(":")[1]);
+
+  // then close the channel
+  const channelClose = await lnd.services.Lightning.closeChannel({
+    channel_point: {
+      funding_txid_str: fundingTxId,
+      output_index: outputIndex,
+    },
+  });
+
+  return channelClose;
+};
+
 module.exports = {
   connect,
   getInfo,
   getBalances,
   getChannels,
   addPeer,
+  removePeer,
   openChannel,
+  closeChannel,
 };

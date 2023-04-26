@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Channels from "./components/Channels";
-import AddPeer from "./components/AddPeer";
-import OpenChannel from "./components/OpenChannel";
+import Peers from "./components/Peers";
+import ManageChannels from "./components/ManageChannels";
 import "./App.css";
 
 function App() {
@@ -53,11 +53,11 @@ function App() {
         </div>
       </div>
 
-      {/* Add peer */}
-      <AddPeer />
+      {/* Peers */}
+      <Peers />
 
       {/* Open channel */}
-      <OpenChannel />
+      <ManageChannels />
 
       {/* channels */}
       <Channels channels={channels} />
